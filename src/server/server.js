@@ -11,6 +11,8 @@ const connection = mysql.createConnection({
     database: 'test_plot',
 });
 
+const tableName = 'mapping_data';
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,20 +24,46 @@ app.use((req, res, next) => {
     next();
 });
 
-// https://express.js.com/en/guide/routing.html
+// NOTE: Get a reserved info by selected event_key
 app.get('/getReservedSeats', (req, res) => {
-    const queryForGettingTmp = 'SELECT * FROM seats WHERE id = 0001';
+    const { key } = req.body.data;
+    const queryForGettingTmp = `SELECT * FROM ${tableName} WHERE key = ${key}`;
     connection.query(queryForGettingTmp, (err, results, fields) => {
-        console.log('results--read', results[0].seat);
+        console.log('results--read', results.reserved);
         if (err) console.log('error', err);
-        res.send(results[0].seat);
+        res.send(results.reserved);
     });
 });
 
-app.post('/saveReservedSeats', (req, res) => {
-    const { data } = req.body;
-    console.log('data post', String(data));
-    const queryForGettingTmp = `UPDATE seats SET seat = '${String(data)}' WHERE id = 0001`;
+// NOTE: Get all seat info like event_name, row, column, event_key, etc
+app.get('/getAllSeatInfo', (req, res) => {
+    const queryForGettingTmp = `SELECT * FROM ${tableName}`;
+    connection.query(queryForGettingTmp, (err, results, fields) => {
+        console.log('results--read', results);
+        if (err) console.log('error', err);
+        res.send(results);
+    });
+});
+
+// NOTE: update reserved info by event_key
+app.post('/updateReservedSeats', (req, res) => {
+    const { reserved, key } = req.body.data;
+    console.log('data post', String(reserved));
+    const queryForGettingTmp = `UPDATE ${tableName} SET reserved = '${String(reserved)}' WHERE key = ${key}`;
+    connection.query(queryForGettingTmp, (err, results, fields) => {
+        if (err) console.log('error', err);
+        res.send(results);
+    });
+    return res;
+});
+
+// NOTE: Create a new mapping data
+app.post('/saveNewSeatType', (req, res) => {
+    const { eventName, key, row, column } = req.body.data;
+    console.log('new seat key', key);
+    const queryForGettingTmp = `INSERT INTO ${tableName}
+    (event_name, key, row, column, reserved) VALUES (${eventName}, ${key}, ${row}, ${column}, '')`;
+
     connection.query(queryForGettingTmp, (err, results, fields) => {
         if (err) console.log('error', err);
         res.send(results);

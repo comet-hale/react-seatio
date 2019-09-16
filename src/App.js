@@ -1,12 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-// import ReactEcharts from 'echarts-for-react';
-// import moment from 'moment';
+
 import { List, fromJS } from 'immutable';
 import range from 'lodash/range';
 
-// import Select from '@material-ui/core/Select';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
