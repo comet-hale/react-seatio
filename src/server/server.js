@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 
 // NOTE: Get a reserved info by selected event_key
-app.get('/getReservedSeats', (req, res) => {
+app.get('/getReservedSeats/:key', (req, res) => {
     const { key } = req.body.data;
     const queryForGettingTmp = `SELECT * FROM ${tableName} WHERE key = ${key}`;
     connection.query(queryForGettingTmp, (err, results, fields) => {

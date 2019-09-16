@@ -8,14 +8,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import './App.css';
+import './Reserving.css';
 
-const MAIN_ROUTE = 'http://localhost:3001/';
-const TEN_SECONDS = 3000; // NOTE: in milliseconds
+const MAIN_ROUTE = process.env.MAIN_ROUTE;
+const THREE_SECS = 3000; // NOTE: in milliseconds
 const ROWS_COUNT = 10;
 const COLUMNS_COUNT = 6;
 
-class ChartView extends React.Component {
+class Resering extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,7 @@ class ChartView extends React.Component {
   }
 
   componentDidMount() {
-    this.alertTimer = setInterval(this.loadReservedSeatInfo, TEN_SECONDS);
+    this.alertTimer = setInterval(this.loadReservedSeatInfo, THREE_SECS);
     this.setState({
       isDataLoading: true,
     }, this.loadReservedSeatInfo());
@@ -55,7 +55,7 @@ class ChartView extends React.Component {
   }
 
   loadReservedSeatInfo = () => {
-    axios.get(`${MAIN_ROUTE}getReservedSeats`)
+    axios.get(`${MAIN_ROUTE}getReservedSeats/:${localStorage.getItem('event_key') || null}`)
       .then(({ data }) => {
         const rawData = data !== '' ? fromJS(data.split(',')) : List();
         this.setState(
@@ -185,4 +185,4 @@ class ChartView extends React.Component {
   }
 }
 
-export default ChartView;
+export default Resering;
