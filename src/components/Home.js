@@ -5,7 +5,7 @@ import { List, fromJS } from 'immutable';
 
 import Button from '@material-ui/core/Button';
 
-const MAIN_ROUTE = process.env.MAIN_ROUTE;
+const MAIN_ROUTE = 'http://localhost:3001/';
 const THREE_SECS = 3000; // NOTE: in milliseconds
 
 class Home extends React.Component {
@@ -38,6 +38,7 @@ class Home extends React.Component {
   loadReservedSeatInfo = () => {
     axios.get(`${MAIN_ROUTE}getAllSeatInfo`)
       .then(({ data }) => {
+        console.error('data', data);
         this.setState({
             allSeatsInfo: fromJS(data),
             isDataLoading: false,
@@ -53,6 +54,7 @@ class Home extends React.Component {
 
   renderAllSeatInfo() {
     const { allSeatsInfo } = this.state;
+    console.error('allSeatsInfo', allSeatsInfo);
 
     if (allSeatsInfo.size < 1) return <p>No data</p>;
 
@@ -78,7 +80,7 @@ class Home extends React.Component {
         {
           !isDataLoading
           ? this.renderAllSeatInfo()
-          : <p>Loading...</p>}
+          : <p>...</p>}
       </div>
     );
   }

@@ -3,19 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.3.2",
+    "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.28",
     "axios": "^0.18.0",
     "date-fns": "^1.27.2",
     "echarts": "^3.7.2",
     "echarts-for-react": "^2.0.14",
+    "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.20.0",
     "moment": "^2.18.1",
-    "immutable": "^3.8.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
   "scripts": {

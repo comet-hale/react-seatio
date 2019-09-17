@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 import './Reserving.css';
 
-const MAIN_ROUTE = process.env.MAIN_ROUTE;
+const MAIN_ROUTE = 'http://localhost:3001/';
 const THREE_SECS = 3000; // NOTE: in milliseconds
 const ROWS_COUNT = 10;
 const COLUMNS_COUNT = 6;

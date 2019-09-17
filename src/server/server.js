@@ -61,10 +61,14 @@ app.post('/updateReservedSeats', (req, res) => {
 app.post('/saveNewSeatType', (req, res) => {
     const { eventName, key, row, column } = req.body.data;
     console.log('new seat key', key);
-    const queryForGettingTmp = `INSERT INTO ${tableName}
-    (event_name, key, row, column, reserved) VALUES (${eventName}, ${key}, ${row}, ${column}, '')`;
+    console.error('req.body.data', req.body.data);
+    const queryForGettingTmp = `INSERT INTO mapping_data (id, event_name, key, row, column, reserved) VALUES ?`;
+    console.log('queryForGettingTmp', queryForGettingTmp);
 
-    connection.query(queryForGettingTmp, (err, results, fields) => {
+    const values = [
+        ['1', eventName, key, row, column, ''],
+    ];
+    connection.query(queryForGettingTmp, [values], (err, results, fields) => {
         if (err) console.log('error', err);
         res.send(results);
     });
