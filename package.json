@@ -11,7 +11,7 @@
     "echarts": "^3.7.2",
     "echarts-for-react": "^2.0.14",
     "immutable": "^3.8.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "material-ui": "^0.20.0",
     "moment": "^2.18.1",
     "react": "^16.9.0",
